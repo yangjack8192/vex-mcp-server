@@ -1,0 +1,36 @@
+{
+  "name": "vex-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for VEX Robotics Competition data using RobotEvents API",
+  "type": "module",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node build/index.js",
+    "start": "node build/index.js",
+    "test": "npm run build && node test_mcp_client.mjs --suite",
+    "test-interactive": "npm run build && node test_mcp_client.mjs --interactive",
+    "test-api": "node test_api.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "vex",
+    "robotics",
+    "robotevents",
+    "competition"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "robotevents": "^3.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
