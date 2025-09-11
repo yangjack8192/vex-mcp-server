@@ -1,5 +1,7 @@
 # VEX MCP Server
 
+[![NPM Version](https://img.shields.io/npm/v/vex-mcp-server.svg)](https://www.npmjs.com/package/vex-mcp-server)
+[![NPM Downloads](https://img.shields.io/npm/dm/vex-mcp-server.svg)](https://www.npmjs.com/package/vex-mcp-server)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
 [![VEX Robotics](https://img.shields.io/badge/VEX-Robotics-orange)](https://www.vexrobotics.com/)
@@ -15,59 +17,74 @@ A Model Context Protocol (MCP) server for VEX Robotics Competition data using th
 - **get-team-rankings**: Get team rankings and performance at events  
 - **get-skills-scores**: Get robot skills scores for teams
 
-## Quick Start
+## 🚀 Quick Start (1-Minute Setup!)
 
 ### Prerequisites
 - Node.js 18.0.0 or higher
 - A RobotEvents API token (free registration required)
 
-### Installation
+### ⚡ Method 1: NPM Installation (Recommended)
+
+**One-line installation:**
+```bash
+npm install -g vex-mcp-server
+```
+
+**Get your RobotEvents API token:**
+1. Visit https://www.robotevents.com/api/v2
+2. Click "Request API Access" and fill out the form  
+3. Once approved, copy your JWT token
+
+**That's it!** 🎉 You can now use `vex-mcp-server` directly in Claude Desktop.
+
+> **💡 Installation Comparison:**
+> 
+> **Before (GitHub only):** 8 steps, absolute paths, manual builds  
+> **Now (NPM):** 1 command, no paths needed! 
+> 
+> From complex setup → Simple one-liner! 🚀
+
+### 🛠️ Method 2: Development Installation
+
+For developers who want to modify the code:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/jackyang/vex-mcp-server.git
+   git clone https://github.com/yangjack1998/vex-mcp-server.git
    cd vex-mcp-server
    ```
 
-2. **Install dependencies:**
+2. **Install and build:**
    ```bash
    npm install
-   ```
-
-3. **Get a RobotEvents API token:**
-   - Visit https://www.robotevents.com/api/v2
-   - Click "Request API Access" and fill out the form
-   - Once approved, copy your JWT token
-
-4. **Configure your token:**
-   
-   **Option A: Environment Variable (Recommended)**
-   ```bash
-   export ROBOTEVENTS_TOKEN="your-jwt-token-here"
-   ```
-   
-   **Option B: .env File**
-   ```bash
-   echo "ROBOTEVENTS_TOKEN=your-jwt-token-here" > .env
-   ```
-
-5. **Build and test:**
-   ```bash
    npm run build
-   npm run test
    ```
 
 ## Usage with Claude Desktop
 
-### Configuration
-
-Add this server to your Claude Desktop configuration file:
+### 🎯 Super Simple Configuration (NPM Installation)
 
 **Location of config file:**
 - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - **Windows**: `%APPDATA%/Claude/claude_desktop_config.json`
 
-**Configuration:**
+**Configuration (NPM version):**
+```json
+{
+  "mcpServers": {
+    "vex-robotics": {
+      "command": "vex-mcp-server",
+      "env": {
+        "ROBOTEVENTS_TOKEN": "your-actual-jwt-token-here"
+      }
+    }
+  }
+}
+```
+
+### 🛠️ Development Configuration
+
+**Configuration (Development version):**
 ```json
 {
   "mcpServers": {
@@ -82,10 +99,10 @@ Add this server to your Claude Desktop configuration file:
 }
 ```
 
-**⚠️ Important Notes:**
-- Use the **absolute path** to your `build/index.js` file
+**📝 Setup Notes:**
 - Replace `your-actual-jwt-token-here` with your real RobotEvents API token
 - Restart Claude Desktop after making configuration changes
+- NPM installation = No paths needed! 🎉
 
 ### Using the Server
 
@@ -144,9 +161,23 @@ node build/index.js 2>&1 | grep DEBUG
 
 ### Support
 
-- **Issues**: Report bugs at [GitHub Issues](https://github.com/jackyang/vex-mcp-server/issues)
+- **NPM Package**: https://www.npmjs.com/package/vex-mcp-server
+- **Issues**: Report bugs at [GitHub Issues](https://github.com/yangjack1998/vex-mcp-server/issues)
 - **VEX Community**: Discuss at [VEX Forum](https://www.vexforum.com/)
 - **RobotEvents API**: Documentation at https://www.robotevents.com/api/v2
+
+### Updates
+
+**NPM users** (recommended):
+```bash
+npm update -g vex-mcp-server
+```
+
+**Development users**:
+```bash
+git pull origin main
+npm run build
+```
 
 ## Contributing
 

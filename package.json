@@ -38,12 +38,15 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "bin": {
+    "vex-mcp-server": "./build/index.js"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jackyang/vex-mcp-server.git"
+    "url": "https://github.com/yangjack1998/vex-mcp-server.git"
   },
   "bugs": {
-    "url": "https://github.com/jackyang/vex-mcp-server/issues"
+    "url": "https://github.com/yangjack1998/vex-mcp-server/issues"
   },
-  "homepage": "https://github.com/jackyang/vex-mcp-server#readme"
+  "homepage": "https://github.com/yangjack1998/vex-mcp-server#readme"
 }

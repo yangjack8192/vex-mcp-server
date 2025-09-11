@@ -1,0 +1,45 @@
+# Source files (only publish build)
+src/
+
+# Development files
+*.test.js
+*.test.mjs
+*test*.js
+*test*.mjs
+test_*.js
+test_*.mjs
+debug_*.js
+debug_*.mjs
+api_test.mjs
+simple_test.mjs
+quick_test.js
+
+# Development scripts
+dev.sh
+
+# Environment files
+.env
+.env.*
+
+# Documentation (keep README, LICENSE, CHANGELOG)
+TESTING.md
+IMPROVEMENTS.md
+
+# Build tools
+tsconfig.json
+
+# Editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# NPM
+node_modules/
+npm-debug.log*
