@@ -4,14 +4,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Build outputs
+# Build output
 build/
 dist/
-*.tsbuildinfo
-
-# Runtime logs
-logs/
-*.log
 
 # Environment variables
 .env
@@ -20,14 +15,34 @@ logs/
 .env.test.local
 .env.production.local
 
-# IDE
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Logs
+logs
+*.log
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Editor directories and files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -36,16 +51,18 @@ logs/
 ehthumbs.db
 Thumbs.db
 
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+test-results/
+playwright-report/
+
+# Local development
+dev.sh
+*.local
+
 # Temporary files
-tmp/
-temp/
 *.tmp
 *.temp
-
-# Test coverage
-coverage/
-*.lcov
-
-# Debug files
-debug_api.js
-simple_test.mjs
+EOF < /dev/null

@@ -17,9 +17,14 @@
     "vex",
     "robotics",
     "robotevents",
-    "competition"
+    "competition",
+    "claude",
+    "model-context-protocol",
+    "api",
+    "vrc",
+    "viqc"
   ],
-  "author": "",
+  "author": "Jack Yang",
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
@@ -32,5 +37,13 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackyang/vex-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jackyang/vex-mcp-server/issues"
+  },
+  "homepage": "https://github.com/jackyang/vex-mcp-server#readme"
 }
