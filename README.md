@@ -37,13 +37,6 @@ npm install -g vex-mcp-server
 
 **That's it!** 🎉 You can now use `vex-mcp-server` directly in Claude Desktop.
 
-> **💡 Installation Comparison:**
-> 
-> **Before (GitHub only):** 8 steps, absolute paths, manual builds  
-> **Now (NPM):** 1 command, no paths needed! 
-> 
-> From complex setup → Simple one-liner! 🚀
-
 ### 🛠️ Method 2: Development Installation
 
 For developers who want to modify the code:
