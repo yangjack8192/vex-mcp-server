@@ -8,9 +8,10 @@
     "build": "tsc",
     "dev": "tsc && node build/index.js",
     "start": "node build/index.js",
-    "test": "npm run build && node test_mcp_client.mjs --suite",
-    "test-interactive": "npm run build && node test_mcp_client.mjs --interactive",
-    "test-api": "node test_api.mjs"
+    "test": "npm run build && node tests/dev/test_mcp_client.mjs --suite",
+    "test-interactive": "npm run build && node tests/dev/test_mcp_client.mjs --interactive",
+    "test-api": "node tests/dev/test_api.mjs",
+    "test-structure": "node tests/dev/test_reorganized.js"
   },
   "keywords": [
     "mcp",

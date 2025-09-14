@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "vex-robotics": {
+      "command": "vex-mcp-server",
+      "env": {
+        "ROBOTEVENTS_TOKEN": "YOUR_TOKEN_HERE"
+      }
+    }
+  }
+}
