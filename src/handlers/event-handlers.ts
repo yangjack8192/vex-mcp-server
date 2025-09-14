@@ -19,7 +19,7 @@ export class EventHandlers {
       const searchParams: any = {};
       
       if (params.sku) {
-        searchParams.sku = Array.isArray(params.sku) ? params.sku : [params.sku];
+        searchParams.sku = params.sku;
       }
       if (params.region) {
         searchParams.region = params.region;
@@ -37,7 +37,7 @@ export class EventHandlers {
         searchParams.end = params.end;
       }
       if (params.season) {
-        searchParams.season = [params.season];
+        searchParams.season = params.season;
       }
       if (params.program) {
         // Note: program parameter doesn't exist in EventSearchOptions

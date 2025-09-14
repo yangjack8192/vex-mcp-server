@@ -15,8 +15,9 @@ export const searchEventsTool: Tool = {
     type: "object",
     properties: {
       sku: {
-        type: "string",
-        description: "Event SKU code (e.g., 'RE-VRC-23-4425')",
+        type: "array",
+        items: { type: "string" },
+        description: "Event SKU codes (e.g., ['RE-VRC-23-4425', 'RE-VIQC-23-1234'])",
       },
       name: {
         type: "string",
@@ -51,8 +52,9 @@ export const searchEventsTool: Tool = {
         description: "End date filter in YYYY-MM-DD format",
       },
       season: {
-        type: "number",
-        description: "Season ID to filter events by",
+        type: "array",
+        items: { type: "number" },
+        description: "Season IDs to filter events by",
       },
       program: {
         oneOf: [
@@ -94,14 +96,14 @@ export const getEventDetailsTool: Tool = {
  * Zod schemas for parameter validation
  */
 export const SearchEventsParamsSchema = z.object({
-  sku: z.string().optional(),
+  sku: z.array(z.string()).optional(),
   name: z.string().optional(),
   region: z.string().optional(),
   level: z.array(z.enum(["World", "National", "State", "Signature", "Regional", "Other"])).optional(),
   eventTypes: z.array(z.enum(["tournament", "league", "workshop", "virtual"])).optional(),
   start: z.string().optional(),
   end: z.string().optional(),
-  season: z.number().optional(),
+  season: z.array(z.number()).optional(),
   program: z.union([z.string(), z.number()]).optional(),
 });
 

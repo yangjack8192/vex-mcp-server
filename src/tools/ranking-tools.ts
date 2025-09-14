@@ -23,8 +23,9 @@ export const getTeamRankingsTool: Tool = {
         description: "Event ID to get rankings for all teams at that event",
       },
       season: {
-        type: "number",
-        description: "Season ID to filter rankings by (optional)",
+        type: "array",
+        items: { type: "number" },
+        description: "Season IDs to filter rankings by (optional)",
       },
     },
     anyOf: [
@@ -52,8 +53,9 @@ export const getSkillsScoresTool: Tool = {
         description: "Event ID to get skills scores for all teams at that event",
       },
       season: {
-        type: "number", 
-        description: "Season ID to filter skills by (optional)",
+        type: "array",
+        items: { type: "number" },
+        description: "Season IDs to filter skills by (optional)",
       },
       type: {
         type: "string",
@@ -74,7 +76,7 @@ export const getSkillsScoresTool: Tool = {
 export const GetTeamRankingsParamsSchema = z.object({
   team_id: z.number().optional(),
   event_id: z.number().optional(),
-  season: z.number().optional(),
+  season: z.array(z.number()).optional(),
 }).refine(
   (data) => data.team_id !== undefined || data.event_id !== undefined,
   {
@@ -85,7 +87,7 @@ export const GetTeamRankingsParamsSchema = z.object({
 export const GetSkillsScoresParamsSchema = z.object({
   team_id: z.number().optional(),
   event_id: z.number().optional(),
-  season: z.number().optional(),
+  season: z.array(z.number()).optional(),
   type: z.enum(["driver", "programming"]).optional(),
 }).refine(
   (data) => data.team_id !== undefined || data.event_id !== undefined,

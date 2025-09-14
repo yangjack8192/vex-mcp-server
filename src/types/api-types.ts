@@ -3,10 +3,10 @@
  */
 
 export interface SearchTeamsParams {
-  number?: string;
+  number?: string[];
   event?: number[];
   country?: string[];
-  program?: number | string;
+  program?: number[];
   grade?: string[];
   registered?: boolean;
   team_name?: string;
@@ -14,27 +14,27 @@ export interface SearchTeamsParams {
 }
 
 export interface SearchEventsParams {
-  sku?: string;
+  sku?: string[];
   name?: string;
   region?: string;
   level?: string[];
   eventTypes?: string[];
   start?: string;
   end?: string;
-  season?: number;
+  season?: number[];
   program?: number | string;
 }
 
 export interface GetTeamRankingsParams {
   team_id: number;
   event_id?: number;
-  season?: number;
+  season?: number[];
 }
 
 export interface GetSkillsScoresParams {
   team_id?: number;
   event_id?: number;
-  season?: number;
+  season?: number[];
   type?: 'driver' | 'programming';
 }
 

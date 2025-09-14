@@ -17,7 +17,7 @@ export class TeamHandlers {
       const searchParams: any = {};
       
       if (args.number) {
-        searchParams.number = [args.number];
+        searchParams.number = args.number;
       }
       if (args.event) {
         searchParams.event = args.event;
@@ -26,16 +26,7 @@ export class TeamHandlers {
         searchParams.country = args.country;
       }
       if (args.program) {
-        if (typeof args.program === 'string') {
-          const programMap: { [key: string]: number } = {
-            'VRC': 1,
-            'VIQC': 41,
-            'VEXU': 4,
-          };
-          searchParams.program = [programMap[args.program.toUpperCase()] || args.program];
-        } else {
-          searchParams.program = [args.program];
-        }
+        searchParams.program = args.program;
       }
       if (args.grade) {
         searchParams.grade = args.grade;

@@ -15,8 +15,9 @@ export const searchTeamsTool: Tool = {
     type: "object",
     properties: {
       number: {
-        type: "string",
-        description: "Team number to search for (e.g., '229V')",
+        type: "array",
+        items: { type: "string" },
+        description: "Team numbers to search for (e.g., ['229V', '254A'])",
       },
       event: {
         type: "array",
@@ -29,11 +30,12 @@ export const searchTeamsTool: Tool = {
         description: "Countries to filter teams by (e.g., ['United States', 'China'])",
       },
       program: {
-        oneOf: [
-          { type: "string" },
-          { type: "number" }
-        ],
-        description: "Program type: 'VRC' (1), 'VIQC' (41), 'VEXU' (4), or program ID number",
+        type: "array",
+        items: { 
+          type: "number",
+          enum: [1, 4, 37, 41, 43, 44, 46, 47, 51, 55, 56, 57]
+        },
+        description: "Program IDs to filter by: VRC (1), VEXU (4), WORKSHOP (37), VIQRC (41), NRL (43), ADC (44), TVRC (46), TVIQRC (47), VRAD (51), BellAVR (55), FAC (56), VAIC (57)",
       },
       grade: {
         type: "array",
@@ -88,10 +90,10 @@ export const getTeamInfoTool: Tool = {
  * Zod schemas for parameter validation
  */
 export const SearchTeamsParamsSchema = z.object({
-  number: z.string().optional(),
+  number: z.array(z.string()).optional(),
   event: z.array(z.number()).optional(),
   country: z.array(z.string()).optional(),
-  program: z.union([z.string(), z.number()]).optional(),
+  program: z.array(z.number()).optional(),
   grade: z.array(z.enum(["Elementary School", "Middle School", "High School", "College"])).optional(),
   registered: z.boolean().optional(),
   team_name: z.string().optional(),
