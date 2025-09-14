@@ -13,13 +13,17 @@ export class TeamHandlers {
    */
   static async handleSearchTeams(args: SearchTeamsParams) {
     try {
+      // Build search parameters using correct TeamSearchOptions
       const searchParams: any = {};
       
-      if (args.number) searchParams["number[]"] = [args.number];
-      if (args.team_name) searchParams.team_name = args.team_name;
-      if (args.organization) searchParams.organization = args.organization;
-      if (args.location) {
-        searchParams["location.city"] = args.location;
+      if (args.number) {
+        searchParams.number = [args.number];
+      }
+      if (args.event) {
+        searchParams.event = args.event;
+      }
+      if (args.country) {
+        searchParams.country = args.country;
       }
       if (args.program) {
         if (typeof args.program === 'string') {
@@ -28,15 +32,34 @@ export class TeamHandlers {
             'VIQC': 41,
             'VEXU': 4,
           };
-          searchParams["program[]"] = [programMap[args.program.toUpperCase()] || args.program];
+          searchParams.program = [programMap[args.program.toUpperCase()] || args.program];
         } else {
-          searchParams["program[]"] = [args.program];
+          searchParams.program = [args.program];
         }
       }
-      if (args.grade) searchParams.grade = args.grade;
-      if (args.registered !== undefined) searchParams.registered = args.registered;
+      if (args.grade) {
+        searchParams.grade = args.grade;
+      }
+      if (args.registered !== undefined) {
+        searchParams.registered = args.registered;
+      }
 
-      const teams = await robotevents.teams.search(searchParams);
+      let teams = await robotevents.teams.search(searchParams);
+      
+      // Client-side filtering for parameters not supported by API
+      if (args.team_name) {
+        const nameFilter = args.team_name.toLowerCase();
+        teams = teams.filter((team: any) => 
+          team.team_name?.toLowerCase().includes(nameFilter)
+        );
+      }
+      
+      if (args.organization) {
+        const orgFilter = args.organization.toLowerCase();
+        teams = teams.filter((team: any) => 
+          team.organization?.toLowerCase().includes(orgFilter)
+        );
+      }
       
       const responseText = `Found ${teams.length} teams:\n\n` + 
         teams.map((team: any) => 

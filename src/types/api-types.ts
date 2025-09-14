@@ -4,12 +4,13 @@
 
 export interface SearchTeamsParams {
   number?: string;
+  event?: number[];
+  country?: string[];
+  program?: number | string;
+  grade?: string[];
+  registered?: boolean;
   team_name?: string;
   organization?: string;
-  location?: string;
-  program?: number | string;
-  grade?: string;
-  registered?: boolean;
 }
 
 export interface SearchEventsParams {

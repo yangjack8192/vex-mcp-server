@@ -10,7 +10,7 @@ import { z } from "zod";
  */
 export const searchTeamsTool: Tool = {
   name: "search-teams",
-  description: "Search for VEX teams by various criteria like team number, name, organization, location, program, or grade level",
+  description: "Search for VEX teams by various criteria like team number, event participation, country, program, or grade level",
   inputSchema: {
     type: "object",
     properties: {
@@ -18,17 +18,15 @@ export const searchTeamsTool: Tool = {
         type: "string",
         description: "Team number to search for (e.g., '229V')",
       },
-      team_name: {
-        type: "string", 
-        description: "Team name to search for",
+      event: {
+        type: "array",
+        items: { type: "number" },
+        description: "Event IDs to search for teams that participated",
       },
-      organization: {
-        type: "string",
-        description: "Organization or school name to search for",
-      },
-      location: {
-        type: "string",
-        description: "City or location to search for teams",
+      country: {
+        type: "array", 
+        items: { type: "string" },
+        description: "Countries to filter teams by (e.g., ['United States', 'China'])",
       },
       program: {
         oneOf: [
@@ -38,12 +36,24 @@ export const searchTeamsTool: Tool = {
         description: "Program type: 'VRC' (1), 'VIQC' (41), 'VEXU' (4), or program ID number",
       },
       grade: {
-        type: "string",
-        description: "Grade level: 'Elementary School', 'Middle School', 'High School', 'College'",
+        type: "array",
+        items: { 
+          type: "string",
+          enum: ["Elementary School", "Middle School", "High School", "College"]
+        },
+        description: "Grade levels to filter by",
       },
       registered: {
         type: "boolean",
         description: "Filter by registration status",
+      },
+      team_name: {
+        type: "string", 
+        description: "Team name to search for (filtered client-side)",
+      },
+      organization: {
+        type: "string",
+        description: "Organization or school name to search for (filtered client-side)",
       },
     },
   },
@@ -79,12 +89,13 @@ export const getTeamInfoTool: Tool = {
  */
 export const SearchTeamsParamsSchema = z.object({
   number: z.string().optional(),
+  event: z.array(z.number()).optional(),
+  country: z.array(z.string()).optional(),
+  program: z.union([z.string(), z.number()]).optional(),
+  grade: z.array(z.enum(["Elementary School", "Middle School", "High School", "College"])).optional(),
+  registered: z.boolean().optional(),
   team_name: z.string().optional(),
   organization: z.string().optional(),
-  location: z.string().optional(),
-  program: z.union([z.string(), z.number()]).optional(),
-  grade: z.string().optional(),
-  registered: z.boolean().optional(),
 });
 
 export const GetTeamInfoParamsSchema = z.object({
