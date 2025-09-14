@@ -10,7 +10,7 @@ import { z } from "zod";
  */
 export const searchEventsTool: Tool = {
   name: "search-events",
-  description: "Search for VEX robotics events by various criteria like name, location, season, program, or date range",
+  description: "Search for VEX robotics events by various criteria like name, region, season, program, level, or date range",
   inputSchema: {
     type: "object",
     properties: {
@@ -20,11 +20,27 @@ export const searchEventsTool: Tool = {
       },
       name: {
         type: "string",
-        description: "Event name to search for (supports partial matches)",
+        description: "Event name to search for (supports partial matches, filtered client-side)",
       },
-      location: {
+      region: {
         type: "string",
-        description: "City, region, or location to search for events",
+        description: "Region to filter events by",
+      },
+      level: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: ["World", "National", "State", "Signature", "Regional", "Other"]
+        },
+        description: "Event level(s) to filter by: World, National, State, Signature, Regional, Other",
+      },
+      eventTypes: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: ["tournament", "league", "workshop", "virtual"]
+        },
+        description: "Event type(s) to filter by: tournament, league, workshop, virtual",
       },
       start: {
         type: "string",
@@ -80,7 +96,9 @@ export const getEventDetailsTool: Tool = {
 export const SearchEventsParamsSchema = z.object({
   sku: z.string().optional(),
   name: z.string().optional(),
-  location: z.string().optional(),
+  region: z.string().optional(),
+  level: z.array(z.enum(["World", "National", "State", "Signature", "Regional", "Other"])).optional(),
+  eventTypes: z.array(z.enum(["tournament", "league", "workshop", "virtual"])).optional(),
   start: z.string().optional(),
   end: z.string().optional(),
   season: z.number().optional(),

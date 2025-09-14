@@ -15,14 +15,20 @@ export class EventHandlers {
     try {
       const params = args || {};
       
-      // Build search parameters for the robotevents API
+      // Build search parameters for the robotevents API using correct EventSearchOptions
       const searchParams: any = {};
       
       if (params.sku) {
-        searchParams["sku[]"] = Array.isArray(params.sku) ? params.sku : [params.sku];
+        searchParams.sku = Array.isArray(params.sku) ? params.sku : [params.sku];
       }
-      if (params.name) {
-        searchParams.name = params.name;
+      if (params.region) {
+        searchParams.region = params.region;
+      }
+      if (params.level) {
+        searchParams.level = params.level;
+      }
+      if (params.eventTypes) {
+        searchParams.eventTypes = params.eventTypes;
       }
       if (params.start) {
         searchParams.start = params.start;
@@ -31,26 +37,38 @@ export class EventHandlers {
         searchParams.end = params.end;
       }
       if (params.season) {
-        searchParams["season[]"] = [params.season];
+        searchParams.season = [params.season];
       }
       if (params.program) {
-        if (typeof params.program === 'string') {
-          const programMap: { [key: string]: number } = {
-            'VRC': 1,
-            'VIQC': 41, 
-            'VEXU': 4,
-          };
-          searchParams["program[]"] = [programMap[params.program.toUpperCase()] || params.program];
-        } else {
-          searchParams["program[]"] = [params.program];
-        }
-      }
-      if (params.location) {
-        // Search in multiple location fields
-        searchParams["location.city"] = params.location;
+        // Note: program parameter doesn't exist in EventSearchOptions
+        // We'll need to filter by program after getting results
       }
 
-      const events = await robotevents.events.search(searchParams);
+      let events = await robotevents.events.search(searchParams);
+      
+      // Client-side filtering for parameters not supported by API
+      if (params.name) {
+        const nameFilter = params.name.toLowerCase();
+        events = events.filter((event: any) => 
+          event.name.toLowerCase().includes(nameFilter)
+        );
+      }
+      
+      if (params.program) {
+        const programFilter = typeof params.program === 'string' 
+          ? params.program.toUpperCase() 
+          : params.program;
+        
+        if (typeof programFilter === 'string') {
+          events = events.filter((event: any) => 
+            event.program?.code === programFilter
+          );
+        } else {
+          events = events.filter((event: any) => 
+            event.program?.id === programFilter
+          );
+        }
+      }
       
       if (events.length === 0) {
         return createTextResponse(
