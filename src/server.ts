@@ -74,6 +74,9 @@ export class VEXMCPServer {
           case "get-event-details":
             return await EventHandlers.handleGetEventDetails(args || {});
 
+          case "get-event-awards":
+            return await EventHandlers.handleGetEventAwards(args as any);
+
           case "get-team-rankings":
             return await RankingHandlers.handleGetTeamRankings(args || {} as any);
 

@@ -16,13 +16,11 @@ export interface SearchTeamsParams {
 export interface SearchEventsParams {
   sku?: string[];
   name?: string;
-  region?: string;
   level?: string[];
   eventTypes?: string[];
   start?: string;
   end?: string;
   season?: number[];
-  program?: number | string;
 }
 
 export interface GetTeamRankingsParams {
@@ -46,4 +44,10 @@ export interface GetTeamInfoParams {
 export interface GetEventDetailsParams {
   event_id?: number;
   sku?: string;
+}
+
+export interface GetEventAwardsParams {
+  event_id: number;
+  team?: number[];
+  winner?: string[];
 }

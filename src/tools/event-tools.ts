@@ -10,7 +10,7 @@ import { z } from "zod";
  */
 export const searchEventsTool: Tool = {
   name: "search-events",
-  description: "Search for VEX robotics events by various criteria like name, region, season, program, level, or date range",
+  description: "Search for VEX robotics events by various criteria like name, season, program, level, or date range",
   inputSchema: {
     type: "object",
     properties: {
@@ -22,10 +22,6 @@ export const searchEventsTool: Tool = {
       name: {
         type: "string",
         description: "Event name to search for (supports partial matches, filtered client-side)",
-      },
-      region: {
-        type: "string",
-        description: "Region to filter events by",
       },
       level: {
         type: "array",
@@ -55,13 +51,6 @@ export const searchEventsTool: Tool = {
         type: "array",
         items: { type: "number" },
         description: "Season IDs to filter events by",
-      },
-      program: {
-        oneOf: [
-          { type: "string" },
-          { type: "number" }
-        ],
-        description: "Program type: 'VRC' (1), 'VIQC' (41), 'VEXU' (4), or program ID number",
       },
     },
   },
@@ -93,18 +82,44 @@ export const getEventDetailsTool: Tool = {
 };
 
 /**
+ * Tool definition for getting event awards
+ */
+export const getEventAwardsTool: Tool = {
+  name: "get-event-awards",
+  description: "Get awards information for a specific VEX event including team winners, individual winners, and award details",
+  inputSchema: {
+    type: "object",
+    properties: {
+      event_id: {
+        type: "number",
+        description: "RobotEvents event ID (required)",
+      },
+      team: {
+        type: "array",
+        items: { type: "number" },
+        description: "Filter awards by specific team IDs (optional)",
+      },
+      winner: {
+        type: "array", 
+        items: { type: "string" },
+        description: "Filter awards by winner names (optional)",
+      },
+    },
+    required: ["event_id"],
+  },
+};
+
+/**
  * Zod schemas for parameter validation
  */
 export const SearchEventsParamsSchema = z.object({
   sku: z.array(z.string()).optional(),
   name: z.string().optional(),
-  region: z.string().optional(),
   level: z.array(z.enum(["World", "National", "State", "Signature", "Regional", "Other"])).optional(),
   eventTypes: z.array(z.enum(["tournament", "league", "workshop", "virtual"])).optional(),
   start: z.string().optional(),
   end: z.string().optional(),
   season: z.array(z.number()).optional(),
-  program: z.union([z.string(), z.number()]).optional(),
 });
 
 export const GetEventDetailsParamsSchema = z.object({
@@ -116,3 +131,9 @@ export const GetEventDetailsParamsSchema = z.object({
     message: "Either event_id or sku must be provided",
   }
 );
+
+export const GetEventAwardsParamsSchema = z.object({
+  event_id: z.number(),
+  team: z.array(z.number()).optional(),
+  winner: z.array(z.string()).optional(),
+});

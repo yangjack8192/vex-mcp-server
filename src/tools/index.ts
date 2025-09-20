@@ -6,7 +6,7 @@ import { Tool } from "@modelcontextprotocol/sdk/types.js";
 
 // Import all tool definitions
 import { searchTeamsTool, getTeamInfoTool } from "./team-tools.js";
-import { searchEventsTool, getEventDetailsTool } from "./event-tools.js";
+import { searchEventsTool, getEventDetailsTool, getEventAwardsTool } from "./event-tools.js";
 import { getTeamRankingsTool, getSkillsScoresTool } from "./ranking-tools.js";
 
 // Import validation schemas
@@ -16,7 +16,8 @@ import {
 } from "./team-tools.js";
 import { 
   SearchEventsParamsSchema, 
-  GetEventDetailsParamsSchema 
+  GetEventDetailsParamsSchema,
+  GetEventAwardsParamsSchema
 } from "./event-tools.js";
 import { 
   GetTeamRankingsParamsSchema, 
@@ -31,6 +32,7 @@ export const TOOLS: Tool[] = [
   getTeamInfoTool,
   searchEventsTool,
   getEventDetailsTool,
+  getEventAwardsTool,
   getTeamRankingsTool,
   getSkillsScoresTool,
 ];
@@ -43,6 +45,7 @@ export const TOOL_SCHEMAS = {
   "get-team-info": GetTeamInfoParamsSchema,
   "search-events": SearchEventsParamsSchema,
   "get-event-details": GetEventDetailsParamsSchema,
+  "get-event-awards": GetEventAwardsParamsSchema,
   "get-team-rankings": GetTeamRankingsParamsSchema,
   "get-skills-scores": GetSkillsScoresParamsSchema,
 } as const;
