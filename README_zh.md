@@ -12,8 +12,9 @@
 
 - **search-teams**: 根据队伍号、名称、组织或地点搜索 VEX 队伍
 - **get-team-info**: 获取特定队伍的详细信息
-- **search-events**: 根据名称、地点、日期或项目搜索 VEX 赛事
+- **search-events**: 根据名称、日期、赛季或项目等级搜索 VEX 赛事
 - **get-event-details**: 获取特定赛事的详细信息
+- **get-event-awards**: 获取 VEX 赛事的奖项信息，包括获奖者和详情
 - **get-team-rankings**: 获取队伍在赛事中的排名和表现
 - **get-skills-scores**: 获取队伍的机器人技能分数
 
@@ -43,7 +44,7 @@ npm install -g vex-mcp-server
 
 1. **克隆仓库：**
    ```bash
-   git clone https://github.com/yangjack1998/vex-mcp-server.git
+   git clone https://github.com/yangjack8192/vex-mcp-server.git
    cd vex-mcp-server
    ```
 
@@ -111,14 +112,24 @@ npm install -g vex-mcp-server
 - **VIQC**: VEX IQ 挑战赛（小学/初中）
 - **VEXU**: VEX U（大学）
 
+## ⚠️ v2.0.0 版本的破坏性变更
+
+**重要提示**: 如果您从 v1.x 版本升级，请注意以下破坏性变更：
+
+- **移除了 `region` 参数** - 从 `search-events` 工具中移除（由于格式不一致）
+- **移除了 `program` 参数** - 从 `search-events` 工具中移除（API 不支持）
+
+**迁移指南**: 请使用其他参数如 `name`、`level` 或 `season` 来进行赛事筛选。
+
 ## API 工具参考
 
 | 工具 | 描述 | 参数 |
 |------|-------------|------------|
-| `search-teams` | 根据队伍号、名称或地点查找队伍 | `number`, `name`, `organization`, `location`, `program` |
+| `search-teams` | 根据队伍号、名称或组织查找队伍 | `number`, `name`, `organization`, `program`, `grade`, `country` |
 | `get-team-info` | 获取特定队伍的详细信息 | `team_id`（必需） |
-| `search-events` | 根据名称、地点或日期查找赛事 | `name`, `location`, `start`, `end`, `program`, `season` |
+| `search-events` | 根据名称、日期或等级查找赛事 | `name`, `start`, `end`, `season`, `level`, `eventTypes` |
 | `get-event-details` | 获取特定赛事的详细信息 | `event_id`（必需） |
+| `get-event-awards` | 获取赛事奖项信息 | `event_id`（必需）, `team`, `winner` |
 | `get-team-rankings` | 获取队伍在赛事中的排名 | `team_id`, `event_id`, `season` |
 | `get-skills-scores` | 获取机器人技能分数 | `team_id`, `event_id`, `season` |
 
@@ -155,7 +166,7 @@ node build/index.js 2>&1 | grep DEBUG
 ### 支持
 
 - **NPM 包**: https://www.npmjs.com/package/vex-mcp-server
-- **问题反馈**: 在 [GitHub Issues](https://github.com/yangjack1998/vex-mcp-server/issues) 报告错误
+- **问题反馈**: 在 [GitHub Issues](https://github.com/yangjack8192/vex-mcp-server/issues) 报告错误
 - **VEX 社区**: 在 [VEX 论坛](https://www.vexforum.com/) 讨论
 - **RobotEvents API**: 文档请访问 https://www.robotevents.com/api/v2
 

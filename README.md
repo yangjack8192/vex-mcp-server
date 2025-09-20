@@ -12,9 +12,10 @@ A Model Context Protocol (MCP) server for VEX Robotics Competition data using th
 
 - **search-teams**: Search for VEX teams by number, name, organization, or location
 - **get-team-info**: Get detailed information about a specific team
-- **search-events**: Search for VEX events by name, location, date, or program
+- **search-events**: Search for VEX events by name, date, season, or program level
 - **get-event-details**: Get detailed information about a specific event
-- **get-team-rankings**: Get team rankings and performance at events  
+- **get-event-awards**: Get award information for VEX events including winners and details
+- **get-team-rankings**: Get team rankings and performance at events
 - **get-skills-scores**: Get robot skills scores for teams
 
 ## 🚀 Quick Start (1-Minute Setup!)
@@ -43,7 +44,7 @@ For developers who want to modify the code:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yangjack1998/vex-mcp-server.git
+   git clone https://github.com/yangjack8192/vex-mcp-server.git
    cd vex-mcp-server
    ```
 
@@ -111,14 +112,24 @@ Once configured, you can ask Claude questions like:
 - **VIQC**: VEX IQ Challenge (Elementary/Middle School)
 - **VEXU**: VEX U (College)
 
+## ⚠️ Breaking Changes in v2.0.0
+
+**Important**: If you're upgrading from v1.x, please note these breaking changes:
+
+- **Removed `region` parameter** from `search-events` tool (due to format inconsistencies)
+- **Removed `program` parameter** from `search-events` tool (not supported by API)
+
+**Migration**: Update your queries to use alternative parameters like `name`, `level`, or `season` for event filtering.
+
 ## API Tools Reference
 
 | Tool | Description | Parameters |
 |------|-------------|------------|
-| `search-teams` | Find teams by number, name, or location | `number`, `name`, `organization`, `location`, `program` |
+| `search-teams` | Find teams by number, name, or organization | `number`, `name`, `organization`, `program`, `grade`, `country` |
 | `get-team-info` | Get detailed team information | `team_id` (required) |
-| `search-events` | Find events by name, location, or date | `name`, `location`, `start`, `end`, `program`, `season` |
+| `search-events` | Find events by name, date, or level | `name`, `start`, `end`, `season`, `level`, `eventTypes` |
 | `get-event-details` | Get detailed event information | `event_id` (required) |
+| `get-event-awards` | Get award information for events | `event_id` (required), `team`, `winner` |
 | `get-team-rankings` | Get team rankings at events | `team_id`, `event_id`, `season` |
 | `get-skills-scores` | Get robot skills scores | `team_id`, `event_id`, `season` |
 
@@ -155,7 +166,7 @@ node build/index.js 2>&1 | grep DEBUG
 ### Support
 
 - **NPM Package**: https://www.npmjs.com/package/vex-mcp-server
-- **Issues**: Report bugs at [GitHub Issues](https://github.com/yangjack1998/vex-mcp-server/issues)
+- **Issues**: Report bugs at [GitHub Issues](https://github.com/yangjack8192/vex-mcp-server/issues)
 - **VEX Community**: Discuss at [VEX Forum](https://www.vexforum.com/)
 - **RobotEvents API**: Documentation at https://www.robotevents.com/api/v2
 
