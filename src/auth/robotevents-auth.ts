@@ -28,7 +28,7 @@ export class RobotEventsAuth {
     try {
       robotevents.authentication.setBearer(token);
       this.isAuthenticated = true;
-      console.log("RobotEvents API authentication configured successfully");
+      console.error("RobotEvents API authentication configured successfully");
     } catch (error) {
       console.error("Failed to set RobotEvents authentication:", error);
     }
