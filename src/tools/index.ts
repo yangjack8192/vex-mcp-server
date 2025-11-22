@@ -16,6 +16,7 @@ import {
   listForumCategoriesTool,
   getLatestForumTopicsTool,
 } from "./forum-tools.js";
+import { analyzeMatchOpponentsTool } from "./match-tools.js";
 
 // Import validation schemas
 import {
@@ -39,6 +40,7 @@ import {
   ListForumCategoriesParamsSchema,
   GetLatestForumTopicsParamsSchema,
 } from "./forum-tools.js";
+import { AnalyzeMatchOpponentsParamsSchema } from "./match-tools.js";
 
 /**
  * All available MCP tools
@@ -61,6 +63,8 @@ export const TOOLS: Tool[] = [
   getForumUserTool,
   listForumCategoriesTool,
   getLatestForumTopicsTool,
+  // Match analysis tools
+  analyzeMatchOpponentsTool,
 ];
 
 /**
@@ -84,6 +88,8 @@ export const TOOL_SCHEMAS = {
   "get-forum-user": GetForumUserParamsSchema,
   "list-forum-categories": ListForumCategoriesParamsSchema,
   "get-latest-forum-topics": GetLatestForumTopicsParamsSchema,
+  // Match analysis tools
+  "analyze-match-opponents": AnalyzeMatchOpponentsParamsSchema,
 } as const;
 
 /**

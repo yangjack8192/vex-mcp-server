@@ -16,6 +16,7 @@ import { TeamHandlers } from "./handlers/team-handlers.js";
 import { EventHandlers } from "./handlers/event-handlers.js";
 import { RankingHandlers } from "./handlers/ranking-handlers.js";
 import { ForumHandlers } from "./handlers/forum-handlers.js";
+import { MatchHandlers } from "./handlers/match-handlers.js";
 
 export class VEXMCPServer {
   private server: Server;
@@ -102,6 +103,9 @@ export class VEXMCPServer {
 
           case "get-latest-forum-topics":
             return await ForumHandlers.handleGetLatestForumTopics(args || {});
+
+          case "analyze-match-opponents":
+            return await MatchHandlers.handleAnalyzeMatchOpponents(args as any);
 
           default:
             throw new Error(`Unknown tool: ${name}`);

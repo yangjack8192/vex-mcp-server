@@ -17,6 +17,13 @@ A Model Context Protocol (MCP) server for VEX Robotics Competition data using th
 - **get-event-awards**: Get award information for VEX events including winners and details
 - **get-team-rankings**: Get team rankings and performance at events
 - **get-skills-scores**: Get robot skills scores for teams
+- **search-forum**: Search the VEX Forum for topics and posts
+- **get-forum-topic**: Get detailed information about a forum topic with posts
+- **get-forum-post**: Retrieve a single forum post by ID
+- **get-forum-user**: Get user profile information from the forum
+- **list-forum-categories**: List all available forum categories
+- **get-latest-forum-topics**: Get the latest topics from the forum
+- **analyze-match-opponents**: Analyze teammates and opponents for all matches at an event, showing their recent award history
 
 ## 🚀 Quick Start (1-Minute Setup!)
 
@@ -105,6 +112,8 @@ Once configured, you can ask Claude questions like:
 - *"Search for robotics events in Texas this season"*
 - *"Get rankings for team 12345 at their last event"*
 - *"Show me the skills scores for teams at the World Championship"*
+- *"Analyze all my matches at event 12345 to see who my opponents are"*
+- *"Help me scout my upcoming matches - show me opponent awards for team 10085A at event RE-VRC-24-1234"*
 
 ## Supported Programs
 
@@ -132,6 +141,70 @@ Once configured, you can ask Claude questions like:
 | `get-event-awards` | Get award information for events | `event_id` (required), `team`, `winner` |
 | `get-team-rankings` | Get team rankings at events | `team_id`, `event_id`, `season` |
 | `get-skills-scores` | Get robot skills scores | `team_id`, `event_id`, `season` |
+| `search-forum` | Search VEX Forum for topics and posts | `query`, `category`, `user`, `order`, `before`, `after`, `max_results` |
+| `get-forum-topic` | Get a forum topic with posts | `topic_id`, `max_posts`, `include_raw` |
+| `get-forum-post` | Get a single forum post | `post_id` |
+| `get-forum-user` | Get forum user profile | `username` |
+| `list-forum-categories` | List all forum categories | None |
+| `get-latest-forum-topics` | Get latest forum topics | `category_slug`, `category_id`, `page`, `max_results` |
+| `analyze-match-opponents` | Analyze match opponents and teammates with their award history | `team_id` or `team_number`, `event_id` or `event_sku` |
+
+## Match Analysis Tool Details
+
+The `analyze-match-opponents` tool helps you scout and prepare for competition matches by showing you the award history of your teammates and opponents.
+
+### Use Case
+
+Perfect for pre-competition preparation:
+1. Look up all your scheduled matches at an upcoming event
+2. See which teams you'll be paired with and against
+3. Review each team's recent award history
+4. Plan strategy based on opponent competitive background
+
+### Parameters
+
+- **team_id** or **team_number**: Your team (either ID like `123456` or number like `"10085A"`)
+- **event_id** or **event_sku**: The event to analyze (either ID like `54321` or SKU like `"RE-VRC-24-1234"`)
+
+### What You Get
+
+For each match, the tool shows:
+- **Match information**: Name and scheduled time
+- **Your Alliance**: Your teammate teams and their recent awards
+- **Opponent Alliance**: Opposing teams and their recent awards
+
+Awards are displayed with event context (e.g., "Excellence Award (World Championship, VRC 2024-2025)") to give you a complete picture of each team's competitive history.
+
+### Example Usage
+
+```
+User: "Analyze my matches for team 10085A at event 54321"
+
+Returns:
+- List of all matches
+- For each match:
+  - Teammate teams with their recent awards
+  - Opponent teams with their recent awards
+  - Award details including event name and season
+```
+
+### Example Output
+
+```
+## Match Q1
+Time: 2024-03-15 10:30:00
+
+### Your Alliance (10085A)
+**Teammates**:
+- 12345B Team Rocket
+  - Recent awards: Excellence Award (State Championship, VRC 2024-2025); Tournament Champions (Regional Qualifier, VRC 2024-2025)
+
+### Opponent Alliance
+- 99999C Blue Devils
+  - Recent awards: Design Award (Signature Event, VRC 2024-2025); Robot Skills Champion (State Championship, VRC 2023-2024)
+- 88888D Green Machine
+  - No recent awards found
+```
 
 ## Troubleshooting
 
