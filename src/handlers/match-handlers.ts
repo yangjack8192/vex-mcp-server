@@ -34,7 +34,7 @@ export class MatchHandlers {
   /**
    * Format awards for display
    */
-  private static formatAwards(awards: any[], limit: number = 5): string[] {
+  private static formatAwards(awards: any[], limit: number = 10): string[] {
     const formattedAwards: string[] = [];
 
     for (const award of awards.slice(0, limit)) {
