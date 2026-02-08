@@ -41,6 +41,13 @@ export interface GetTeamInfoParams {
   team_number?: string;
 }
 
+export interface GetTeamAwardsParams {
+  team_id?: number;
+  team_number?: string;
+  season?: number[];
+  event?: number[];
+}
+
 export interface GetEventDetailsParams {
   event_id?: number;
   sku?: string;

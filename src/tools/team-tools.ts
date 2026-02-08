@@ -87,6 +87,41 @@ export const getTeamInfoTool: Tool = {
 };
 
 /**
+ * Tool definition for getting team awards
+ */
+export const getTeamAwardsTool: Tool = {
+  name: "get-team-awards",
+  description: "Get all awards won by a specific VEX team throughout their competitive history. Shows award titles, events, and seasons.",
+  inputSchema: {
+    type: "object",
+    properties: {
+      team_id: {
+        type: "number",
+        description: "RobotEvents team ID",
+      },
+      team_number: {
+        type: "string",
+        description: "Team number (e.g., '229V')",
+      },
+      season: {
+        type: "array",
+        items: { type: "number" },
+        description: "Filter by season IDs (optional)",
+      },
+      event: {
+        type: "array",
+        items: { type: "number" },
+        description: "Filter by event IDs (optional)",
+      },
+    },
+    anyOf: [
+      { required: ["team_id"] },
+      { required: ["team_number"] }
+    ],
+  },
+};
+
+/**
  * Zod schemas for parameter validation
  */
 export const SearchTeamsParamsSchema = z.object({
@@ -103,6 +138,18 @@ export const SearchTeamsParamsSchema = z.object({
 export const GetTeamInfoParamsSchema = z.object({
   team_id: z.number().optional(),
   team_number: z.string().optional(),
+}).refine(
+  (data) => data.team_id !== undefined || data.team_number !== undefined,
+  {
+    message: "Either team_id or team_number must be provided",
+  }
+);
+
+export const GetTeamAwardsParamsSchema = z.object({
+  team_id: z.number().optional(),
+  team_number: z.string().optional(),
+  season: z.array(z.number()).optional(),
+  event: z.array(z.number()).optional(),
 }).refine(
   (data) => data.team_id !== undefined || data.team_number !== undefined,
   {

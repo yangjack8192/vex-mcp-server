@@ -12,6 +12,7 @@ A Model Context Protocol (MCP) server for VEX Robotics Competition data using th
 
 - **search-teams**: Search for VEX teams by number, name, organization, or location
 - **get-team-info**: Get detailed information about a specific team
+- **get-team-awards**: Get all awards won by a specific team throughout their competitive history
 - **search-events**: Search for VEX events by name, date, season, or program level
 - **get-event-details**: Get detailed information about a specific event
 - **get-event-awards**: Get award information for VEX events including winners and details
@@ -135,7 +136,8 @@ Once configured, you can ask Claude questions like:
 | Tool | Description | Parameters |
 |------|-------------|------------|
 | `search-teams` | Find teams by number, name, or organization | `number`, `name`, `organization`, `program`, `grade`, `country` |
-| `get-team-info` | Get detailed team information | `team_id` (required) |
+| `get-team-info` | Get detailed team information | `team_id` or `team_number` (required) |
+| `get-team-awards` | Get all awards won by a team | `team_id` or `team_number` (required), `season`, `event` |
 | `search-events` | Find events by name, date, or level | `name`, `start`, `end`, `season`, `level`, `eventTypes` |
 | `get-event-details` | Get detailed event information | `event_id` (required) |
 | `get-event-awards` | Get award information for events | `event_id` (required), `team`, `winner` |

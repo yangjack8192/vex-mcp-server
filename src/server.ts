@@ -70,6 +70,9 @@ export class VEXMCPServer {
           case "get-team-info":
             return await TeamHandlers.handleGetTeamInfo(args || {});
 
+          case "get-team-awards":
+            return await TeamHandlers.handleGetTeamAwards(args || {});
+
           case "search-events":
             return await EventHandlers.handleSearchEvents(args);
 
