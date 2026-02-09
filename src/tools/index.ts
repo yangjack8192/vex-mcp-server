@@ -8,46 +8,82 @@ import { Tool } from "@modelcontextprotocol/sdk/types.js";
 import { searchTeamsTool, getTeamInfoTool } from "./team-tools.js";
 import { searchEventsTool, getEventDetailsTool, getEventAwardsTool } from "./event-tools.js";
 import { getTeamRankingsTool, getSkillsScoresTool } from "./ranking-tools.js";
+import {
+  searchForumTool,
+  getForumTopicTool,
+  getForumPostTool,
+  getForumUserTool,
+  listForumCategoriesTool,
+  getLatestForumTopicsTool,
+} from "./forum-tools.js";
 
 // Import validation schemas
-import { 
-  SearchTeamsParamsSchema, 
-  GetTeamInfoParamsSchema 
+import {
+  SearchTeamsParamsSchema,
+  GetTeamInfoParamsSchema
 } from "./team-tools.js";
-import { 
-  SearchEventsParamsSchema, 
+import {
+  SearchEventsParamsSchema,
   GetEventDetailsParamsSchema,
   GetEventAwardsParamsSchema
 } from "./event-tools.js";
-import { 
-  GetTeamRankingsParamsSchema, 
-  GetSkillsScoresParamsSchema 
+import {
+  GetTeamRankingsParamsSchema,
+  GetSkillsScoresParamsSchema
 } from "./ranking-tools.js";
+import {
+  SearchForumParamsSchema,
+  GetForumTopicParamsSchema,
+  GetForumPostParamsSchema,
+  GetForumUserParamsSchema,
+  ListForumCategoriesParamsSchema,
+  GetLatestForumTopicsParamsSchema,
+} from "./forum-tools.js";
 
 /**
  * All available MCP tools
  */
 export const TOOLS: Tool[] = [
+  // Team tools
   searchTeamsTool,
   getTeamInfoTool,
+  // Event tools
   searchEventsTool,
   getEventDetailsTool,
   getEventAwardsTool,
+  // Ranking tools
   getTeamRankingsTool,
   getSkillsScoresTool,
+  // Forum tools
+  searchForumTool,
+  getForumTopicTool,
+  getForumPostTool,
+  getForumUserTool,
+  listForumCategoriesTool,
+  getLatestForumTopicsTool,
 ];
 
 /**
  * Validation schemas mapped by tool name
  */
 export const TOOL_SCHEMAS = {
+  // Team tools
   "search-teams": SearchTeamsParamsSchema,
   "get-team-info": GetTeamInfoParamsSchema,
+  // Event tools
   "search-events": SearchEventsParamsSchema,
   "get-event-details": GetEventDetailsParamsSchema,
   "get-event-awards": GetEventAwardsParamsSchema,
+  // Ranking tools
   "get-team-rankings": GetTeamRankingsParamsSchema,
   "get-skills-scores": GetSkillsScoresParamsSchema,
+  // Forum tools
+  "search-forum": SearchForumParamsSchema,
+  "get-forum-topic": GetForumTopicParamsSchema,
+  "get-forum-post": GetForumPostParamsSchema,
+  "get-forum-user": GetForumUserParamsSchema,
+  "list-forum-categories": ListForumCategoriesParamsSchema,
+  "get-latest-forum-topics": GetLatestForumTopicsParamsSchema,
 } as const;
 
 /**

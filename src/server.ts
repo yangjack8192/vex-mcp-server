@@ -15,6 +15,7 @@ import { TOOLS, TOOL_SCHEMAS, ToolName } from "./tools/index.js";
 import { TeamHandlers } from "./handlers/team-handlers.js";
 import { EventHandlers } from "./handlers/event-handlers.js";
 import { RankingHandlers } from "./handlers/ranking-handlers.js";
+import { ForumHandlers } from "./handlers/forum-handlers.js";
 
 export class VEXMCPServer {
   private server: Server;
@@ -82,6 +83,25 @@ export class VEXMCPServer {
 
           case "get-skills-scores":
             return await RankingHandlers.handleGetSkillsScores(args || {} as any);
+
+          // Forum tools
+          case "search-forum":
+            return await ForumHandlers.handleSearchForum(args as any);
+
+          case "get-forum-topic":
+            return await ForumHandlers.handleGetForumTopic(args as any);
+
+          case "get-forum-post":
+            return await ForumHandlers.handleGetForumPost(args as any);
+
+          case "get-forum-user":
+            return await ForumHandlers.handleGetForumUser(args as any);
+
+          case "list-forum-categories":
+            return await ForumHandlers.handleListForumCategories(args || {});
+
+          case "get-latest-forum-topics":
+            return await ForumHandlers.handleGetLatestForumTopics(args || {});
 
           default:
             throw new Error(`Unknown tool: ${name}`);
