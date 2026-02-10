@@ -3,7 +3,7 @@
  */
 
 import * as robotevents from "robotevents";
-import { SearchTeamsParams, GetTeamInfoParams } from "../types/index.js";
+import { SearchTeamsParams, GetTeamInfoParams, GetTeamAwardsParams } from "../types/index.js";
 import { createTextResponse, createErrorResponse } from "../utils/response-formatter.js";
 import { RobotEventsAPIClient } from "../utils/api-client.js";
 
@@ -103,6 +103,89 @@ export class TeamHandlers {
       return createTextResponse(responseText);
     } catch (error) {
       return createErrorResponse(error, "retrieving team information");
+    }
+  }
+
+  /**
+   * Handles get-team-awards tool requests
+   */
+  static async handleGetTeamAwards(args: GetTeamAwardsParams) {
+    try {
+      let teamId: number;
+      let teamNumber: string;
+
+      // Resolve team identifier
+      if (args.team_id) {
+        teamId = args.team_id;
+        const team = await RobotEventsAPIClient.getTeam(teamId);
+        if (!team) {
+          throw new Error(`Team with ID ${teamId} not found`);
+        }
+        teamNumber = team.number;
+      } else if (args.team_number) {
+        teamNumber = args.team_number;
+        const team = await RobotEventsAPIClient.getTeam(teamNumber);
+        if (!team) {
+          throw new Error(`Team ${teamNumber} not found`);
+        }
+        teamId = team.id;
+      } else {
+        throw new Error("Either team_id or team_number must be provided");
+      }
+
+      // Fetch awards with optional filters
+      const options: any = {};
+      if (args.season) {
+        options.season = args.season;
+      }
+      if (args.event) {
+        options.event = args.event;
+      }
+
+      const awardsCollection = await RobotEventsAPIClient.getTeamAwards(teamId, options);
+      const awards = awardsCollection.array();
+
+      if (awards.length === 0) {
+        return createTextResponse(`No awards found for team ${teamNumber}.`);
+      }
+
+      // Format awards output
+      let responseText = `**Awards for Team ${teamNumber}**\n`;
+      responseText += `Total awards: ${awards.length}\n\n`;
+
+      // Group by event for better organization
+      const awardsByEvent = new Map<string, any[]>();
+
+      for (const award of awards) {
+        const eventName = award.event?.name || "Unknown Event";
+        if (!awardsByEvent.has(eventName)) {
+          awardsByEvent.set(eventName, []);
+        }
+        awardsByEvent.get(eventName)!.push(award);
+      }
+
+      // Sort events alphabetically
+      const sortedEvents = Array.from(awardsByEvent.entries()).sort((a, b) => {
+        return b[0].localeCompare(a[0]);
+      });
+
+      // Format output by event
+      for (const [eventName, eventAwards] of sortedEvents) {
+        responseText += `### ${eventName}\n`;
+        for (const award of eventAwards) {
+          const title = award.title || "Unknown Award";
+          const qualifications = award.qualifications?.length > 0
+            ? ` (${award.qualifications.join(", ")})`
+            : "";
+
+          responseText += `- **${title}**${qualifications}\n`;
+        }
+        responseText += `\n`;
+      }
+
+      return createTextResponse(responseText);
+    } catch (error) {
+      return createErrorResponse(error, "retrieving team awards");
     }
   }
 }

@@ -80,4 +80,39 @@ export class RobotEventsAPIClient {
   static async getEvent(identifier: string | number) {
     return await robotevents.events.get(identifier);
   }
+
+  /**
+   * Get matches for a specific team
+   */
+  static async getTeamMatches(
+    teamIdentifier: string | number,
+    options?: {
+      event?: number[];
+      season?: number[];
+      round?: number[];
+    }
+  ) {
+    const team = await this.getTeam(teamIdentifier);
+    if (!team) {
+      throw new Error(`Team ${teamIdentifier} not found`);
+    }
+    return await team.matches(options);
+  }
+
+  /**
+   * Get awards for a specific team
+   */
+  static async getTeamAwards(
+    teamIdentifier: string | number,
+    options?: {
+      event?: number[];
+      season?: number[];
+    }
+  ) {
+    const team = await this.getTeam(teamIdentifier);
+    if (!team) {
+      throw new Error(`Team ${teamIdentifier} not found`);
+    }
+    return await team.awards(options);
+  }
 }

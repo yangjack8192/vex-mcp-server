@@ -5,7 +5,7 @@
 import { Tool } from "@modelcontextprotocol/sdk/types.js";
 
 // Import all tool definitions
-import { searchTeamsTool, getTeamInfoTool } from "./team-tools.js";
+import { searchTeamsTool, getTeamInfoTool, getTeamAwardsTool } from "./team-tools.js";
 import { searchEventsTool, getEventDetailsTool, getEventAwardsTool } from "./event-tools.js";
 import { getTeamRankingsTool, getSkillsScoresTool } from "./ranking-tools.js";
 import {
@@ -16,11 +16,13 @@ import {
   listForumCategoriesTool,
   getLatestForumTopicsTool,
 } from "./forum-tools.js";
+import { analyzeMatchOpponentsTool } from "./match-tools.js";
 
 // Import validation schemas
 import {
   SearchTeamsParamsSchema,
-  GetTeamInfoParamsSchema
+  GetTeamInfoParamsSchema,
+  GetTeamAwardsParamsSchema
 } from "./team-tools.js";
 import {
   SearchEventsParamsSchema,
@@ -39,6 +41,7 @@ import {
   ListForumCategoriesParamsSchema,
   GetLatestForumTopicsParamsSchema,
 } from "./forum-tools.js";
+import { AnalyzeMatchOpponentsParamsSchema } from "./match-tools.js";
 
 /**
  * All available MCP tools
@@ -47,6 +50,7 @@ export const TOOLS: Tool[] = [
   // Team tools
   searchTeamsTool,
   getTeamInfoTool,
+  getTeamAwardsTool,
   // Event tools
   searchEventsTool,
   getEventDetailsTool,
@@ -61,6 +65,8 @@ export const TOOLS: Tool[] = [
   getForumUserTool,
   listForumCategoriesTool,
   getLatestForumTopicsTool,
+  // Match analysis tools
+  analyzeMatchOpponentsTool,
 ];
 
 /**
@@ -70,6 +76,7 @@ export const TOOL_SCHEMAS = {
   // Team tools
   "search-teams": SearchTeamsParamsSchema,
   "get-team-info": GetTeamInfoParamsSchema,
+  "get-team-awards": GetTeamAwardsParamsSchema,
   // Event tools
   "search-events": SearchEventsParamsSchema,
   "get-event-details": GetEventDetailsParamsSchema,
@@ -84,6 +91,8 @@ export const TOOL_SCHEMAS = {
   "get-forum-user": GetForumUserParamsSchema,
   "list-forum-categories": ListForumCategoriesParamsSchema,
   "get-latest-forum-topics": GetLatestForumTopicsParamsSchema,
+  // Match analysis tools
+  "analyze-match-opponents": AnalyzeMatchOpponentsParamsSchema,
 } as const;
 
 /**
