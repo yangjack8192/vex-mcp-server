@@ -74,10 +74,6 @@ export const getEventDetailsTool: Tool = {
         description: "Event SKU code (e.g., 'RE-VRC-23-4425')",
       },
     },
-    anyOf: [
-      { required: ["event_id"] },
-      { required: ["sku"] }
-    ],
   },
 };
 

@@ -28,10 +28,6 @@ export const getTeamRankingsTool: Tool = {
         description: "Season IDs to filter rankings by (optional)",
       },
     },
-    anyOf: [
-      { required: ["team_id"] },
-      { required: ["event_id"] }
-    ],
   },
 };
 
@@ -63,10 +59,6 @@ export const getSkillsScoresTool: Tool = {
         description: "Type of skills to filter by (driver or programming)",
       },
     },
-    anyOf: [
-      { required: ["team_id"] },
-      { required: ["event_id"] }
-    ],
   },
 };
 

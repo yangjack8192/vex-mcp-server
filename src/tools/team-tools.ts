@@ -79,10 +79,6 @@ export const getTeamInfoTool: Tool = {
         description: "Team number (e.g., '229V')",
       },
     },
-    anyOf: [
-      { required: ["team_id"] },
-      { required: ["team_number"] }
-    ],
   },
 };
 
@@ -114,10 +110,6 @@ export const getTeamAwardsTool: Tool = {
         description: "Filter by event IDs (optional)",
       },
     },
-    anyOf: [
-      { required: ["team_id"] },
-      { required: ["team_number"] }
-    ],
   },
 };
 
